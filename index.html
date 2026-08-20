@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>台南・府城慢行</title>
+<meta name="theme-color" content="#B4472F">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{
+  --paper:#FFFBF2;
+  --paper-2:#F5E8D5;
+  --card:#FFFFFF;
+  --ink:#2B211D;
+  --ink-2:#5A4A42;
+  --brick:#B4472F;
+  --brick-light:#D87C5A;
+  --wood:#C9A66B;
+  --line:#EAD9C2;
+  --line-strong:#D8C0A3;
+  --muted:#9C8A7B;
+  --shadow:0 8px 24px rgba(59,33,23,.08), 0 2px 8px rgba(59,33,23,.06);
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,sans-serif;
+  --serif:"Noto Serif TC",serif;
+  --mono:ui-monospace,SFMono-Regular,"Roboto Mono",Menlo,monospace;
+  --tab-h:72px;
+  --radius:16px;
+  --radius-sm:10px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--brick);outline-offset:3px}
+
+/* ---------- 暖色 Hero - 磚牆紙感 ---------- */
+.hero-warm{
+  position:relative;
+  background:var(--paper);
+  overflow:hidden;
+}
+.hero-warm::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    radial-gradient(600px 300px at 20% -10%, rgba(212,124,90,.18), transparent 60%),
+    radial-gradient(500px 300px at 90% 0%, rgba(201,166,107,.22), transparent 60%),
+    linear-gradient(180deg, rgba(255,251,242,0) 0%, rgba(245,232,213,.6) 100%);
+}
+.hero-warm::after{
+  content:"";
+  position:absolute;inset:0;
+  opacity:.35;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='48' height='18' x='2' y='2' rx='2' fill='%23EAD9C2'/%3E%3Crect width='48' height='18' x='56' y='2' rx='2' fill='%23F0DFC6'/%3E%3Crect width='48' height='18' x='110' y='2' rx='2' fill='%23EAD9C2'/%3E%3Crect width='48' height='18' x='30' y='28' rx='2' fill='%23F0DFC6'/%3E%3Crect width='48' height='18' x='84' y='28' rx='2' fill='%23E5D0B3'/%3E%3C/svg%3E");
+  background-size:200px 100px;
+}
+.hero{
+  position:relative;z-index:1;
+  padding:28px 20px 22px;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--brick);
+  background:rgba(180,71,47,.1);border:1px solid rgba(180,71,47,.18);
+  padding:6px 10px;border-radius:999px;margin:0 0 16px;
+}
+.eyebrow i{width:6px;height:6px;background:var(--brick);border-radius:50%;display:inline-block}
+.hero h1{
+  margin:0;font-size:clamp(42px,14vw,64px);line-height:.95;
+  font-weight:800;letter-spacing:-.02em;color:var(--ink);
+}
+.hero h1 span{color:var(--brick);font-weight:400;font-family:var(--serif)}
+.h1-en{
+  font-family:var(--mono);font-size:11px;letter-spacing:.38em;
+  color:var(--muted);margin:12px 0 0;text-transform:uppercase;
+}
+.titleblock{
+  margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);
+  background:rgba(255,255,255,.72);backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.titleblock div{padding:10px 12px;border-right:1px solid var(--line);text-align:left}
+.titleblock div:last-child{border-right:0}
+.titleblock dt{
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin:0;
+}
+.titleblock dd{margin:4px 0 0;font-size:13px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---------- 通用 ---------- */
+.wrap{padding:20px 16px 8px}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin:28px 0 14px}
+.sec-head:first-child{margin-top:6px}
+.sec-head h2{margin:0;font-size:17px;font-weight:800;letter-spacing:.01em}
+.sec-head span{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);background:var(--paper-2);
+  padding:2px 8px;border-radius:999px;
+}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+}
+.note{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.6}
+.warn{color:var(--brick);font-weight:600}
+
+/* ---------- 首頁 hub - 溫暖卡 ---------- */
+.hub{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.hub button{
+  background:var(--card);border:1px solid var(--line);
+  padding:16px 8px;text-align:center;border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);transition:.2s transform;
+}
+.hub button:active{transform:scale(.97)}
+.hub b{display:block;font-size:13.5px;font-weight:700;color:var(--ink)}
+.hub small{
+  display:block;font-family:var(--mono);font-size:9px;
+  letter-spacing:.16em;color:var(--muted);margin-top:6px
+}
+.hub button:first-child b{color:var(--brick)}
+
+/* ---------- 交通卡 - 舊車票感 ---------- */
+.ticket{margin-bottom:14px;overflow:hidden;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.ticket .top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;background:linear-gradient(180deg,#FFFEFB 0%, #FDF3E5 100%);
+  border-bottom:1px dashed var(--line-strong);position:relative;
+}
+.ticket .top::before,.ticket .top::after{
+  content:"";position:absolute;bottom:-6px;width:12px;height:12px;background:var(--paper);border:1px solid var(--line);border-radius:50%;
+}
+.ticket .top::before{left:-6px}.ticket .top::after{right:-6px}
+.ticket .dir{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);background:var(--paper-2);padding:2px 6px;border-radius:999px}
+.ticket .carrier{font-size:13px;font-weight:700;color:var(--ink)}
+.ticket .date{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ticket .body{display:flex;align-items:center;gap:10px;padding:16px}
+.ticket .end{flex:1;min-width:0}
+.ticket .end.r{text-align:right}
+.ticket .code{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--brick);background:rgba(180,71,47,.08);padding:2px 6px;border-radius:6px;display:inline-block;margin-bottom:4px}
+.ticket .stn{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticket .time{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.ticket .mid{flex:0 0 70px;text-align:center}
+.ticket .mid .train{font-size:11px;color:var(--brick);font-weight:700;background:var(--paper-2);padding:3px 8px;border-radius:999px;display:inline-block}
+.ticket .mid hr{border:0;border-top:2px dotted var(--line-strong);margin:8px 0}
+.ticket .mid span{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
+.tags i{
+  font-style:normal;font-size:11px;padding:4px 10px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);background:var(--paper)
+}
+
+/* ---------- DAY 頁籤 - 藥丸式 ---------- */
+.daybar{
+  display:flex;gap:10px;overflow-x:auto;padding:14px 16px;
+  position:sticky;top:0;z-index:5;background:rgba(255,251,242,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);scrollbar-width:none;
+}
+.daybar::-webkit-scrollbar{display:none}
+.daybar button{
+  flex:0 0 auto;padding:10px 16px;border:1px solid var(--line);
+  border-radius:999px;background:var(--card);text-align:left;line-height:1.3;
+  box-shadow:0 1px 0 rgba(0,0,0,.03);transition:.2s;
+}
+.daybar button b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.daybar button small{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-top:2px;font-variant-numeric:tabular-nums}
+.daybar button[aria-selected="true"]{background:var(--brick);border-color:var(--brick);color:#fff;box-shadow:0 6px 16px rgba(180,71,47,.28)}
+.daybar button[aria-selected="true"] b{color:rgba(255,255,255,.7)}
+.daybar button[aria-selected="true"] small{color:#fff}
+.daybar button.today{border-color:var(--brick);border-width:1.5px}
+
+/* ---------- 行程線 - 溫暖木紋點 ---------- */
+.route{position:relative;margin:18px 0 0;padding-left:30px}
+.route::before{
+  content:"";position:absolute;left:9px;top:12px;bottom:26px;
+  width:2px;background:repeating-linear-gradient(180deg,var(--line-strong) 0 6px, transparent 6px 10px);
+  border-radius:2px;
+}
+.stop{position:relative;margin-bottom:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px 14px;box-shadow:var(--shadow)}
+.stop::before{
+  content:"";position:absolute;left:-28px;top:20px;width:12px;height:12px;
+  border:2.5px solid var(--brick);background:var(--paper);border-radius:50%;box-shadow:0 0 0 4px var(--paper);
+}
+.stop .hd{display:flex;align-items:baseline;gap:10px}
+.stop .t{
+  font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--brick);background:rgba(180,71,47,.1);padding:2px 8px;border-radius:999px;
+}
+.stop .n{font-size:15px;font-weight:700;color:var(--ink)}
+.stop .en{margin:2px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.stop .addr{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.stop .row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.tag{
+  display:inline-flex;align-items:center;font-size:11px;padding:3px 9px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);background:var(--paper)
+}
+.tag--eat{background:var(--brick);border-color:var(--brick);color:#fff;font-weight:700}
+
+.nav-btn{
+  margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:var(--brick);
+  background:rgba(180,71,47,.1);border:1px solid rgba(180,71,47,.18);
+  padding:6px 12px;border-radius:999px;transition:.15s;
+}
+.nav-btn:active{transform:scale(.96)}
+.route-all{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--ink);color:#fff;padding:12px 16px;border-radius:999px;
+  font-size:13px;font-weight:700;margin:10px 0 4px;box-shadow:0 6px 18px rgba(43,33,29,.18);
+}
+
+/* ---------- 地圖卡 ---------- */
+.map-card{display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:10px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+
+/* ---------- 行前準備 ---------- */
+.chk-group{margin-bottom:18px}
+.chk-group h3{margin:0 0 10px;font-size:13px;font-weight:800;color:var(--ink);letter-spacing:.04em}
+.chk{
+  display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:10px 12px;margin-bottom:8px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 1px 0 rgba(0,0,0,.02);transition:.15s;
+}
+.chk[aria-checked="true"]{background:rgba(180,71,47,.06);border-color:rgba(180,71,47,.22)}
+.chk .box{
+  flex:0 0 20px;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-strong);
+  display:grid;place-items:center;background:#fff;transition:.15s;
+}
+.chk[aria-checked="true"] .box{background:var(--brick);border-color:var(--brick);color:#fff}
+.chk .box::after{content:"✓";font-size:12px;font-weight:800;opacity:0}
+.chk[aria-checked="true"] .box::after{opacity:1;color:#fff}
+.chk .lbl{font-size:13.5px;color:var(--ink-2)}
+.chk[aria-checked="true"] .lbl{color:var(--ink);text-decoration:line-through;text-decoration-color:rgba(180,71,47,.4)}
+
+/* ---------- tabbar ---------- */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  display:flex;justify-content:space-around;align-items:center;
+  padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.04);
+}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;border-radius:12px;color:var(--muted);transition:.2s}
+.tabbar button[aria-current="page"]{color:var(--brick);background:rgba(180,71,47,.08)}
+.tabbar b{font-size:10px;font-weight:700;letter-spacing:.02em}
+.tabbar svg{width:22px;height:22px}
+
+/* ---------- view ---------- */
+.view{display:none}.view.on{display:block}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="v-home" class="view on">
+  <div class="hero-warm">
+    <div class="hero">
+      <p class="eyebrow"><i></i>TAINAN TRIP 2026.08.26 — 08.29</p>
+      <h1>台南<br><span>府城慢行</span></h1>
+      <p class="h1-en">A WARM WALK THROUGH OLD TAINAN</p>
+      <div class="titleblock" id="titleblock"></div>
+      <div class="hub">
+        <button data-go="days"><b>行程</b><small>ITINERARY</small></button>
+        <button data-go="map"><b>地圖</b><small>MAP</small></button>
+        <button data-go="prep"><b>行前</b><small>CHECKLIST</small></button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sec-head"><h2>交通票券</h2><span>Tickets</span></div>
+    <div id="home-transport"></div>
+    <div class="sec-head"><h2>住宿</h2><span>Stays</span></div>
+    <div id="home-stays"></div>
+    <p class="note">💡 磚紅色標籤是吃的。含 ⚠️ 的請出發前再核對座標或營業時間。</p>
+  </div>
+</div>
+
+<!-- DAYS -->
+<div id="v-days" class="view">
+  <div class="daybar" id="daybar" role="tablist"></div>
+  <div class="wrap"><div id="day-body"></div></div>
+</div>
+
+<!-- MAP -->
+<div id="v-map" class="view">
+  <div class="wrap">
+    <div class="sec-head"><h2>全部地點</h2><span>All Places</span></div>
+    <p class="note">點「導航」會開啟 Google Maps，確認座標是否正確。</p>
+    <div id="map-body" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- PREP -->
+<div id="v-prep" class="view">
+  <div class="wrap">
+    <div class="sec-head"><h2>行前準備</h2><span id="chk-progress">0 / 0 已完成</span></div>
+    <div id="prep-body"></div>
+    <button id="chk-reset" style="margin-top:18px;width:100%;padding:12px;border-radius:999px;border:1px dashed var(--line-strong);color:var(--muted);font-size:13px">重置勾選</button>
+    <p class="note" style="margin-top:14px">勾選狀態會存在手機裡，關掉重開還在。</p>
+  </div>
+</div>
+
+<!-- TABBAR -->
+<nav class="tabbar" aria-label="主選單">
+  <button data-go="home" aria-current="page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-5H9v5H4a1 1 0 0 1-1-1V9.5z"/></svg><b>首頁</b>
+  </button>
+  <button data-go="days">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><b>每日</b>
+  </button>
+  <button data-go="map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6l6-3 6 3 6-3v13l-6 3-6-3-6 3V6z"/><path d="M7 3v13M13 6v13"/></svg><b>地圖</b>
+  </button>
+  <button data-go="prep">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5h12M9 12h12M9 19h12M5 5l1 1-1 1M5 12l1 1-1 1M5 19l1 1-1 1"/></svg><b>清單</b>
+  </button>
+</nav>
+
+<script src="./data.js"></script>
+<script>
+(function(){
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function fmtMD(d){return (d.getMonth()+1)+'月'+d.getDate()+'日'}
+  function fmtFull(d){var w='日一二三四五六'.charAt(d.getDay());return fmtMD(d)+'・週'+w}
+  function dayDate(i){var base=new Date(TRIP.startDate);base.setDate(base.getDate()+i);return base}
+  function isSameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}
+  function urlPoint(s){if(s.placeId){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.name)+'&query_place_id='+encodeURIComponent(s.placeId)}return 'https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lng}
+  function urlRoute(stops){
+    if(!stops||!stops.length)return '#';
+    var origin=stops[0].lat+','+stops[0].lng;
+    var dest=stops[stops.length-1].lat+','+stops[stops.length-1].lng;
+    var mids=stops.slice(1,-1).slice(0,8).map(function(s){return s.lat+','+s.lng}).join('|');
+    var base='https://www.google.com/maps/dir/?api=1&travelmode='+encodeURIComponent(TRIP.travelMode||'driving');
+    base+='&origin='+encodeURIComponent(origin)+'&destination='+encodeURIComponent(dest);
+    if(mids)base+='&waypoints='+encodeURIComponent(mids);
+    return base;
+  }
+
+  function renderHome(){
+    var tb=document.getElementById('titleblock');
+    var s=new Date(TRIP.startDate);
+    var e=new Date(s);e.setDate(e.getDate()+(TRIP.days.length-1));
+    tb.innerHTML=
+      '<div><dt>City</dt><dd>'+esc(TRIP.city)+' '+esc(TRIP.cityEn)+'</dd></div>'+
+      '<div><dt>Dates</dt><dd>'+esc(fmtMD(s))+'—'+esc(fmtMD(e))+'</dd></div>'+
+      '<div><dt>Days</dt><dd>'+TRIP.days.length+' 天 / '+(TRIP.days.reduce(function(a,d){return a+d.stops.length},0))+' 站</dd></div>';
+
+    document.getElementById('home-transport').innerHTML=TRIP.transport.map(function(t){
+      var d=dayDate(t.dayIndex);
+      return '<div class="ticket">'+
+        '<div class="top"><span class="dir">'+esc(t.dirZh)+'</span><span class="carrier">'+esc(t.carrier)+' '+esc(t.code)+'</span><span class="date">'+esc(fmtMD(d))+'</span></div>'+
+        '<div class="body">'+
+          '<div class="end"><div class="code">'+esc(t.fromCode)+'</div><div class="time">'+esc(t.fromTime)+'</div><div class="stn">'+esc(t.fromName)+'</div></div>'+
+          '<div class="mid"><span class="train">🚄 '+(t.code||'')+'</span><hr><span>'+esc(t.dayIndex>=0?(fmtMD(dayDate(t.dayIndex))):'')+'</span></div>'+
+          '<div class="end r"><div class="code">'+esc(t.toCode)+'</div><div class="time">'+esc(t.toTime)+'</div><div class="stn">'+esc(t.toName)+'</div></div>'+
+        '</div>'+
+        '<div class="tags">'+t.tags.map(function(x){return '<i>'+esc(x)+'</i>'}).join('')+'<i style="border-color:rgba(180,71,47,.25);color:var(--brick)">'+esc(t.note||'')+'</i></div>'+
+      '</div>';
+    }).join('');
+
+    document.getElementById('home-stays').innerHTML=TRIP.stays.map(function(s){
+      return '<div class="card" style="padding:14px 16px">'+
+        '<div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:15.5px">'+esc(s.name)+'</b><span class="tag">'+esc(s.area)+'</span></div>'+
+        '<p class="note">'+esc(fmtMD(dayDate(s.checkIn)))+' → '+esc(fmtMD(dayDate(s.checkOut)))+'　·　'+esc(s.addr)+'</p>'+
+        (s.note?'<p class="note">'+esc(s.note)+'</p>':'')+
+        '<div class="row" style="display:flex;margin-top:10px"><a class="nav-btn" style="margin-left:auto" target="_blank" rel="noopener" href="'+esc(urlPoint(s))+'">導航 🧭</a></div>'+
+      '</div>';
+    }).join('');
+  }
+
+  var activeDay=0;
+  function todayIndex(){var now=new Date();for(var i=0;i<TRIP.days.length;i++){if(isSameDay(dayDate(i),now))return i}return -1}
+  function renderDayBar(){
+    var ti=todayIndex();
+    document.getElementById('daybar').innerHTML=TRIP.days.map(function(d,i){
+      return '<button role="tab" data-day="'+i+'" aria-selected="'+(i===activeDay)+'"'+(i===ti?' class="today"':'')+'>'+
+        '<b>DAY '+(i+1)+'</b><small>'+esc(fmtFull(dayDate(i)))+'</small></button>';
+    }).join('');
+  }
+  function renderDay(){
+    var d=TRIP.days[activeDay];
+    var html=
+      '<div class="sec-head"><h2>'+esc(d.theme)+'</h2><span>'+esc(d.themeEn)+'</span></div>'+
+      '<a class="route-all" target="_blank" rel="noopener" href="'+esc(urlRoute(d.stops))+'">開啟今日路線 🗺️</a>'+
+      '<div class="route">'+
+      d.stops.map(function(s){
+        var eat=s.tag==='吃';
+        return '<div class="stop">'+
+          '<div class="hd"><span class="t">'+esc(s.time)+'</span><span class="n">'+esc(s.name)+'</span></div>'+
+          '<p class="en">'+esc(s.en||'')+'</p>'+
+          '<p class="addr">'+esc(s.addr||'')+'</p>'+
+          (s.note?'<p class="note'+(/⚠️/.test(s.note)?' warn':'')+'">'+esc(s.note)+'</p>':'')+
+          '<div class="row">'+
+            (s.tag?'<span class="tag'+(eat?' tag--eat':'')+'">'+esc(s.tag)+'</span>':'')+
+            '<a class="nav-btn" target="_blank" rel="noopener" href="'+esc(urlPoint(s))+'">導航 🧭</a>'+
+          '</div>'+
+        '</div>';
+      }).join('')+
+      '</div>';
+    document.getElementById('day-body').innerHTML=html;
+  }
+  function renderMap(){
+    var html=TRIP.days.map(function(d,i){
+      return '<div class="sec-head" style="margin-top:20px"><h2>DAY '+(i+1)+'　'+esc(d.theme)+'</h2><span>'+esc(fmtMD(dayDate(i)))+'</span></div>'+
+        d.stops.map(function(s){
+          return '<div class="map-card"><div style="flex:1;min-width:0"><b style="font-size:14.5px">'+esc(s.name)+'</b><p class="addr" style="margin:3px 0 0;font-size:12px;color:var(--muted)">'+esc(s.addr||'')+'</p></div><a class="nav-btn" target="_blank" rel="noopener" href="'+esc(urlPoint(s))+'">導航</a></div>';
+        }).join('');
+    }).join('');
+    document.getElementById('map-body').innerHTML=html;
+  }
+
+  var CHK_KEY='tainan-checklist-v1';
+  var checked={};try{checked=JSON.parse(localStorage.getItem(CHK_KEY)||'{}')}catch(e){checked={}}
+  function saveChk(){try{localStorage.setItem(CHK_KEY,JSON.stringify(checked))}catch(e){console.warn(e)}}
+  function renderPrep(){
+    var done=0,total=0;
+    var html=TRIP.checklist.map(function(g){
+      return '<div class="chk-group"><h3>'+esc(g.group)+'</h3>'+
+        g.items.map(function(it){
+          var key=g.group+'::'+it;total++;if(checked[key])done++;
+          return '<button class="chk" role="checkbox" aria-checked="'+(!!checked[key])+'" data-key="'+esc(key)+'"><span class="box"></span><span class="lbl">'+esc(it)+'</span></button>';
+        }).join('')+'</div>';
+    }).join('');
+    document.getElementById('prep-body').innerHTML=html;
+    document.getElementById('chk-progress').textContent=done+' / '+total+' 已完成';
+  }
+
+  var VIEWS=['home','days','map','prep'];
+  function go(name){
+    if(VIEWS.indexOf(name)<0)name='home';
+    VIEWS.forEach(function(v){document.getElementById('v-'+v).classList.toggle('on',v===name)});
+    document.querySelectorAll('.tabbar button').forEach(function(b){
+      if(b.dataset.go===name)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+    });
+    if(location.hash!=='#'+name)location.hash=name;
+    window.scrollTo(0,0);
+  }
+
+  document.addEventListener('click',function(e){
+    var goBtn=e.target.closest('[data-go]');if(goBtn){go(goBtn.dataset.go);return}
+    var dayBtn=e.target.closest('[data-day]');if(dayBtn){activeDay=Number(dayBtn.dataset.day);renderDayBar();renderDay();return}
+    var chk=e.target.closest('.chk');if(chk){var k=chk.dataset.key;checked[k]=!checked[k];saveChk();renderPrep();return}
+    if(e.target.id==='chk-reset'){checked={};saveChk();renderPrep()}
+  });
+  window.addEventListener('hashchange',function(){go(location.hash.replace('#',''))});
+
+  var ti=todayIndex();if(ti>=0)activeDay=ti;
+  renderHome();renderDayBar();renderDay();renderMap();renderPrep();
+  go(location.hash?location.hash.replace('#',''):'home');
+
+
+  // --- 手機手勢：左右滑動切換 DAY ---
+  var touchStartX=0, touchStartY=0;
+  var dayBody=document.getElementById('day-body');
+  if(dayBody){
+    dayBody.addEventListener('touchstart',function(e){
+      if(e.touches.length!=1) return;
+      touchStartX=e.touches[0].clientX;
+      touchStartY=e.touches[0].clientY;
+    },{passive:true});
+    dayBody.addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX - touchStartX;
+      var dy=e.changedTouches[0].clientY - touchStartY;
+      if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)) return;
+      if(dx < 0 && activeDay < TRIP.days.length-1){ activeDay++; renderDayBar(); renderDay(); }
+      if(dx > 0 && activeDay > 0){ activeDay--; renderDayBar(); renderDay(); }
+    },{passive:true});
+  }
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('./sw.js').catch(function(err){console.error(err)})
+    })
+  }
+})();
+</script>
+</body>
+</html>
