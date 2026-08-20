@@ -21,7 +21,7 @@
   --wood:#C9A66B;
   --line:#EAD9C2;
   --line-strong:#D8C0A3;
-  --muted:#9C8A7B;
+  --muted:#6B5847;
   --shadow:0 8px 24px rgba(59,33,23,.08), 0 2px 8px rgba(59,33,23,.06);
   --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,sans-serif;
   --serif:"Noto Serif TC",serif;
@@ -114,7 +114,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
   background:var(--card);border:1px solid var(--line);
   border-radius:var(--radius);box-shadow:var(--shadow);
 }
-.note{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.6}
+.note{font-size:13.5px;font-weight:500;color:var(--muted);margin:6px 0 0;line-height:1.65}
 .warn{color:var(--brick);font-weight:600}
 
 /* ---------- 首頁 hub - 溫暖卡 ---------- */
@@ -150,7 +150,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .ticket .end{flex:1;min-width:0}
 .ticket .end.r{text-align:right}
 .ticket .code{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--brick);background:rgba(180,71,47,.08);padding:2px 6px;border-radius:6px;display:inline-block;margin-bottom:4px}
-.ticket .stn{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticket .stn{font-size:12.5px;font-weight:500;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ticket .time{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .ticket .mid{flex:0 0 70px;text-align:center}
 .ticket .mid .train{font-size:11px;color:var(--brick);font-weight:700;background:var(--paper-2);padding:3px 8px;border-radius:999px;display:inline-block}
@@ -158,7 +158,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .ticket .mid span{font-family:var(--mono);font-size:9px;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 14px}
 .tags i{
-  font-style:normal;font-size:11px;padding:4px 10px;border-radius:999px;
+  font-style:normal;font-size:12px;font-weight:500;padding:4px 10px;border-radius:999px;
   border:1px solid var(--line);color:var(--muted);background:var(--paper)
 }
 
@@ -200,11 +200,11 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
   color:var(--brick);background:rgba(180,71,47,.1);padding:2px 8px;border-radius:999px;
 }
 .stop .n{font-size:15px;font-weight:700;color:var(--ink)}
-.stop .en{margin:2px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
-.stop .addr{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.stop .en{margin:2px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.stop .addr{margin:4px 0 0;font-size:13px;font-weight:500;color:var(--muted)}
 .stop .row{display:flex;align-items:center;gap:8px;margin-top:10px}
 .tag{
-  display:inline-flex;align-items:center;font-size:11px;padding:3px 9px;border-radius:999px;
+  display:inline-flex;align-items:center;font-size:12px;font-weight:500;padding:3px 9px;border-radius:999px;
   border:1px solid var(--line);color:var(--muted);background:var(--paper)
 }
 .tag--eat{background:var(--brick);border-color:var(--brick);color:#fff;font-weight:700}
@@ -241,7 +241,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .chk[aria-checked="true"] .box{background:var(--brick);border-color:var(--brick);color:#fff}
 .chk .box::after{content:"✓";font-size:12px;font-weight:800;opacity:0}
 .chk[aria-checked="true"] .box::after{opacity:1;color:#fff}
-.chk .lbl{font-size:13.5px;color:var(--ink-2)}
+.chk .lbl{font-size:14.5px;font-weight:500;color:var(--ink-2)}
 .chk[aria-checked="true"] .lbl{color:var(--ink);text-decoration:line-through;text-decoration-color:rgba(180,71,47,.4)}
 
 /* ---------- tabbar ---------- */
@@ -415,7 +415,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
     var html=TRIP.days.map(function(d,i){
       return '<div class="sec-head" style="margin-top:20px"><h2>DAY '+(i+1)+'　'+esc(d.theme)+'</h2><span>'+esc(fmtMD(dayDate(i)))+'</span></div>'+
         d.stops.map(function(s){
-          return '<div class="map-card"><div style="flex:1;min-width:0"><b style="font-size:14.5px">'+esc(s.name)+'</b><p class="addr" style="margin:3px 0 0;font-size:12px;color:var(--muted)">'+esc(s.addr||'')+'</p></div><a class="nav-btn" target="_blank" rel="noopener" href="'+esc(urlPoint(s))+'">導航</a></div>';
+          return '<div class="map-card"><div style="flex:1;min-width:0"><b style="font-size:14.5px">'+esc(s.name)+'</b><p class="addr" style="margin:3px 0 0;font-size:13px;font-weight:500;color:var(--muted)">'+esc(s.addr||'')+'</p></div><a class="nav-btn" target="_blank" rel="noopener" href="'+esc(urlPoint(s))+'">導航</a></div>';
         }).join('');
     }).join('');
     document.getElementById('map-body').innerHTML=html;
